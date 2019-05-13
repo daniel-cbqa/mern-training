@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import ProfileHeader from './ProfileHeader';
-import ProfileAbout from './ProfileAbout';
-import ProfileCreds from './ProfileCreds';
-import ProfileGithub from './ProfileGithub';
-import Spinner from '../common/Spinner';
-import { getProfileByHandle } from '../../actions/profileActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import ProfileHeader from "./ProfileHeader";
+import ProfileAbout from "./ProfileAbout";
+import ProfileCreds from "./ProfileCreds";
+import ProfileGithub from "./ProfileGithub";
+import Spinner from "../common/Spinner";
+import { getProfileByHandle } from "../../actions/profileActions";
 
 class Profile extends Component {
   componentDidMount() {
@@ -16,16 +16,9 @@ class Profile extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.profile.profile === null && this.props.profile.loading) {
-      this.props.history.push('/not-found');
-    }
-  }
-
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
-
     if (profile === null || loading) {
       profileContent = <Spinner />;
     } else {
@@ -51,7 +44,6 @@ class Profile extends Component {
         </div>
       );
     }
-
     return (
       <div className="profile">
         <div className="container">
@@ -62,15 +54,24 @@ class Profile extends Component {
       </div>
     );
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile === null && this.props.profile.loading) {
+      this.props.history.push("/not-found");
+    }
+  }
 }
 
 Profile.propTypes = {
-  getProfileByHandle: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  getProfileByHandle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { getProfileByHandle })(Profile);
+export default connect(
+  mapStateToProps,
+  { getProfileByHandle }
+)(Profile);

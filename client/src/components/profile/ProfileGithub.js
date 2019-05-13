@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ProfileGithub extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientId: '26c196bacea7db10cf48',
-      clientSecret: '0885cb690e07d2a93a6afb0891fb552fd9f7aa53',
+      clientId: "b8eb55d8196e5e9b23e4",
+      clientSecret: "cea79ed8a80849e879b9489be50d75c39b45e10a",
       count: 5,
-      sort: 'created: asc',
+      sort: "created: asc",
       repos: []
     };
   }
@@ -17,14 +16,15 @@ class ProfileGithub extends Component {
   componentDidMount() {
     const { username } = this.props;
     const { count, sort, clientId, clientSecret } = this.state;
-
     fetch(
       `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
     )
       .then(res => res.json())
       .then(data => {
         if (this.refs.myRef) {
-          this.setState({ repos: data });
+          this.setState({
+            repos: data
+          });
         }
       })
       .catch(err => console.log(err));
@@ -32,15 +32,19 @@ class ProfileGithub extends Component {
 
   render() {
     const { repos } = this.state;
-
     const repoItems = repos.map(repo => (
       <div key={repo.id} className="card card-body mb-2">
         <div className="row">
           <div className="col-md-6">
             <h4>
-              <Link to={repo.html_url} className="text-info" target="_blank">
+              <a
+                href={repo.html_url}
+                rel="noopener noreferrer"
+                className="text-info"
+                target="_blank"
+              >
                 {repo.name}
-              </Link>
+              </a>
             </h4>
             <p>{repo.description}</p>
           </div>

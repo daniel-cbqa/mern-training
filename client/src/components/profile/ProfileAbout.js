@@ -1,21 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from '../../validation/is-empty';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import isEmpty from "../../validation/is-empty";
 
 class ProfileAbout extends Component {
   render() {
     const { profile } = this.props;
 
-    // Get first name
-    const firstName = profile.user.name.trim().split(' ')[0];
-
-    // Skill List
-    const skills = profile.skills.map((skill, index) => (
-      <div key={index} className="p-3">
-        <i className="fa fa-check" /> {skill}
-      </div>
-    ));
-
+    //get first name
+    const firstName = profile.user.name.trim().split(" ")[0];
     return (
       <div className="row">
         <div className="col-md-12">
@@ -32,7 +24,11 @@ class ProfileAbout extends Component {
             <h3 className="text-center text-info">Skill Set</h3>
             <div className="row">
               <div className="d-flex flex-wrap justify-content-center align-items-center">
-                {skills}
+                {profile.skills.map((skill, index) => (
+                  <div className="p-3" key={index}>
+                    <i className="fa fa-check" /> {skill}
+                  </div>
+                ))}
               </div>
             </div>
           </div>

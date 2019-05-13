@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Moment from 'react-moment';
-import { deleteEducation } from '../../actions/profileActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Moment from "react-moment";
+import { deleteEducation } from "../../actions/profileActions";
 
 class Education extends Component {
   onDeleteClick(id) {
@@ -14,18 +14,19 @@ class Education extends Component {
       <tr key={edu._id}>
         <td>{edu.school}</td>
         <td>{edu.degree}</td>
+        <td>{edu.fieldofstudy}</td>
         <td>
-          <Moment format="YYYY/MM/DD">{edu.from}</Moment> -
+          <Moment format="YYYY/MM/DD">{edu.from}</Moment> -{" "}
           {edu.to === null ? (
-            ' Now'
+            "Now"
           ) : (
             <Moment format="YYYY/MM/DD">{edu.to}</Moment>
           )}
         </td>
         <td>
           <button
+            className="btn btn-warning"
             onClick={this.onDeleteClick.bind(this, edu._id)}
-            className="btn btn-danger"
           >
             Delete
           </button>
@@ -40,11 +41,12 @@ class Education extends Component {
             <tr>
               <th>School</th>
               <th>Degree</th>
+              <th>Field of Study</th>
               <th>Years</th>
               <th />
             </tr>
-            {education}
           </thead>
+          <tbody>{education}</tbody>
         </table>
       </div>
     );
@@ -55,4 +57,7 @@ Education.propTypes = {
   deleteEducation: PropTypes.func.isRequired
 };
 
-export default connect(null, { deleteEducation })(Education);
+export default connect(
+  null,
+  { deleteEducation }
+)(Education);
